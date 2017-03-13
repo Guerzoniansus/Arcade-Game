@@ -106,7 +106,8 @@ public class Main extends JFrame implements KeyListener {
 		
 		obstacleTimer = new Timer();
 		
-		TimerTask obstacleTimerTask = new TimerTask() {
+		/*
+		final TimerTask obstacleTimerTask = new TimerTask() {
 			public void run() {
 		    	if (isAlive) {
 		    		
@@ -114,24 +115,25 @@ public class Main extends JFrame implements KeyListener {
 					obstacles.add(obstacle);
 					
 					obstacleTimer.cancel();
-					obstacleTimer.schedule(obsctacleTimerTask, currentTime);
+					obstacleTimer.schedule(obstacleTimerTask, currentTime);
 					
 		    	} else {
 		    		
 		    	}
 		    }
 		};
+		*/
 		
-		obstacleTimer = new Timer();
+		//obstacleTimer = new Timer();
 		
-		timer.schedule(new TimerTask() {
+		obstacleTimer.schedule(new TimerTask() {
 		    public void run() {
 		    	if (isAlive) {
 		    		
 		    		Obstacle obstacle = new Obstacle(currentSpeed);
 					obstacles.add(obstacle);
 					
-					obstacleTimer.cancel();
+					//obstacleTimer.cancel();
 					
 		    	} else {
 		    		
@@ -142,7 +144,7 @@ public class Main extends JFrame implements KeyListener {
 		
 		
 		Timer timerScore = new Timer();
-		timer.schedule(new TimerTask() {
+		timerScore.schedule(new TimerTask() {
 		    public void run() {
 		    	if (isAlive) {
 		    		score++;
