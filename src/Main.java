@@ -10,6 +10,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -39,6 +40,7 @@ public class Main extends JFrame implements KeyListener {
 	static boolean isAlive;
 	
 	public static Timer obstacleTimer;
+	public static TimerTask obstacleTimerTask;
 	
 	
 	public static void main(String[] args) {
@@ -104,7 +106,7 @@ public class Main extends JFrame implements KeyListener {
 		 *  
 		 */
 		
-		obstacleTimer = new Timer();
+		//obstacleTimer = new Timer();
 		
 		/*
 		final TimerTask obstacleTimerTask = new TimerTask() {
@@ -124,16 +126,36 @@ public class Main extends JFrame implements KeyListener {
 		};
 		*/
 		
-		//obstacleTimer = new Timer();
+		obstacleTimer = new Timer();
 		
-		obstacleTimer.schedule(new TimerTask() {
-		    public void run() {
-		    	if (isAlive) {
+		/*
+		obstacleTimerTask = new TimerTask() {
+			public void run() {
+		    	if (isAlive) {		    		
 		    		
 		    		Obstacle obstacle = new Obstacle(currentSpeed);
 					obstacles.add(obstacle);
 					
-					//obstacleTimer.cancel();
+					changeSpeed();
+					
+		    	} else {
+		    		
+		    	}
+		    }
+		};
+		*/
+		
+		obstacleTimer.schedule(new ObstacleTimerTask(), 0, 1 * currentTime);
+		
+		/*
+		obstacleTimer.schedule(new TimerTask() {
+		    public void run() {
+		    	if (isAlive) {		    		
+		    		
+		    		Obstacle obstacle = new Obstacle(currentSpeed);
+					obstacles.add(obstacle);
+					
+					changeSpeed();
 					
 		    	} else {
 		    		
@@ -141,6 +163,7 @@ public class Main extends JFrame implements KeyListener {
 		    }
 		    
 		 }, 0, 2 * currentTime);
+		 */
 		
 		
 		Timer timerScore = new Timer();
@@ -148,12 +171,51 @@ public class Main extends JFrame implements KeyListener {
 		    public void run() {
 		    	if (isAlive) {
 		    		score++;
+		    		changeSpeed();
 		    	} else {
 		    		
 		    	}
 		    }
 		 }, 0, 1000);
 		
+	}
+	
+	public static void changeSpeed() {
+		
+		
+		//obstacleTimer = new Timer();
+		
+		Random rand = new Random();
+		
+		int x = rand.nextInt(2);
+		
+		if (x == 0) {
+			currentSpeed++;
+		}
+		
+		for (Obstacle obstacle : obstacles) {
+			if (obstacle != null) {			
+				obstacle.setSpeed(currentSpeed);
+			}
+		}
+		
+		
+		//obstacleTimer.schedule(new ObstacleTimerTask(), 0, 2 * currentTime);
+	}
+	
+	static class ObstacleTimerTask extends TimerTask {
+		public void run() {
+	    	if (isAlive) {		    		
+	    		
+	    		Obstacle obstacle = new Obstacle(currentSpeed);
+				obstacles.add(obstacle);
+				
+				changeSpeed();
+				
+	    	} else {
+	    		
+	    	}
+	    }
 	}
 	
 	

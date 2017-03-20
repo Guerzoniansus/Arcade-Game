@@ -57,6 +57,10 @@ public class Obstacle {
 		this.speed = newSpeed;
 	}
 	
+	public int getSpeed() {
+		return this.speed;
+	}
+	
 	public void move() {
 		y = y - speed;
 	}
